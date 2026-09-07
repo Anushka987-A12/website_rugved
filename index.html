@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aegis Robotics — student-led defence robotics research at Manipal.">
+  <title>RUGVED Systems</title>
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="root"></div>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script>
+    const { useEffect, useState } = React;
+    const projects = [
+      { name: 'Unmanned Ground Vehicle', division: 'GROUND DIVISION', type: 'ground', image: 'pictures/ugv.png', alt: 'Aegis unmanned ground vehicle', summary: 'Autonomous and modular ground vehicle fitted with our ground-penetrating radar research.', detail: 'Vanguard is an all-terrain test platform exploring real-time mapping, obstacle avoidance, and modular payload integration.', tags: ['AUTONOMY', 'MAPPING', 'MODULAR'] },
+      { name: 'UAV Swarm', division: 'AERIAL DIVISION', type: 'aerial', image: 'pictures/swarm.png', alt: 'Aegis UAV swarm', summary: 'An autonomous drone system designed around a coordinated parent-child architecture.', detail: 'Sentinel investigates how a small group of UAVs can coordinate sensing, navigation, and mission hand-offs.', tags: ['SWARM', 'VISION', 'COORDINATION'] }
+    ];
+    function App() {
+      const [filter, setFilter] = useState('all');
+      const [selectedProject, setSelectedProject] = useState(null);
+      const [menuOpen, setMenuOpen] = useState(false);
+      const [status, setStatus] = useState('All systems operational');
+      const visibleProjects = filter === 'all' ? projects : projects.filter(project => project.type === filter);
+      useEffect(() => {
+        const closeOnEscape = event => event.key === 'Escape' && setSelectedProject(null);
+        window.addEventListener('keydown', closeOnEscape);
+        return () => window.removeEventListener('keydown', closeOnEscape);
+      }, []);
+      function scrollToSection(id) {
+        document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
+        setMenuOpen(false);
+      }
+      return React.createElement(React.Fragment, null,
+        React.createElement('nav', { className: 'navbar' },
+          React.createElement('button', { className: 'logo', onClick: () => scrollToSection('#top'), 'aria-label': 'Go to top' }, 'RUGVED ', React.createElement('span', null, 'SYSTEMS')),
+          React.createElement('button', { className: 'menu-button', onClick: () => setMenuOpen(!menuOpen), 'aria-expanded': menuOpen, 'aria-label': 'Toggle navigation' }, menuOpen ? '×' : '☰'),
+          React.createElement('div', { className: `nav-links ${menuOpen ? 'is-open' : ''}` },
+            [['About', '#about'], ['Projects', '#projects'], ['Join us', '#join']].map(([label, target]) => React.createElement('button', { key: label, onClick: () => scrollToSection(target) }, label))
+          )
+        ),
+        React.createElement('main', { id: 'top' },
+          React.createElement('header', { className: 'hero' }, React.createElement('div', { className: 'hero-grid' },
+            React.createElement('div', { className: 'hero-content' },
+              React.createElement('div', { className: 'badge' }, React.createElement('span', { className: 'status-dot' }), ' SECURE // ADVANCED // AUTONOMOUS'),
+              React.createElement('p', { className: 'eyebrow' }, 'STUDENT-LED RESEARCH COLLECTIVE'),
+              React.createElement('h1', null, 'Engineering systems for the field.'),
+              React.createElement('p', { className: 'hero-copy' }, 'A multidisciplinary robotics team at Manipal exploring autonomous ground and aerial systems.'),
+              React.createElement('div', { className: 'hero-actions' }, React.createElement('button', { className: 'btn', onClick: () => scrollToSection('#join') }, 'Join the cohort'), React.createElement('button', { className: 'text-button', onClick: () => scrollToSection('#projects') }, 'Explore projects ↓'))
+            ),
+            React.createElement('aside', { className: 'mission-panel', 'aria-label': 'Mission status' },
+              React.createElement('p', { className: 'panel-label' }, 'MISSION CONTROL'),
+              React.createElement('div', { className: 'mission-line' }, React.createElement('span', { className: 'signal' }), status),
+              React.createElement('div', { className: 'mission-stats' }, React.createElement('div', null, React.createElement('strong', null, '02'), React.createElement('span', null, 'ACTIVE PLATFORMS')), React.createElement('div', null, React.createElement('strong', null, '06'), React.createElement('span', null, 'CORE DISCIPLINES'))),
+              React.createElement('button', { className: 'status-button', onClick: () => setStatus(status === 'All systems operational' ? 'Telemetry link refreshed' : 'All systems operational') }, 'Refresh telemetry')
+            )
+          )),
+          React.createElement('section', { id: 'about', className: 'about-section' }, React.createElement('p', { className: 'eyebrow section-kicker' }, 'WHAT WE BUILD'), React.createElement('h2', null, 'Research with a real-world edge.'), React.createElement('p', { className: 'section-intro' }, 'From mechanical systems and embedded electronics to AI and strategy, we build as one team.')),
+          React.createElement('section', { id: 'projects', className: 'projects-section' },
+            React.createElement('div', { className: 'section-heading' }, React.createElement('div', null, React.createElement('p', { className: 'eyebrow' }, 'ACTIVE PROGRAMS'), React.createElement('h2', null, 'Our projects')), React.createElement('div', { className: 'filters', 'aria-label': 'Filter projects' }, [['all', 'All'], ['ground', 'Ground'], ['aerial', 'Aerial']].map(([value, label]) => React.createElement('button', { key: value, className: filter === value ? 'active' : '', onClick: () => setFilter(value) }, label)))),
+            React.createElement('div', { className: 'project-grid' }, visibleProjects.map(project => React.createElement('article', { className: 'project-card', key: project.name }, React.createElement('img', { src: project.image, alt: project.alt }), React.createElement('div', { className: 'card-content' }, React.createElement('span', { className: 'division-tag' }, project.division), React.createElement('h3', null, project.name), React.createElement('p', null, project.summary), React.createElement('button', { className: 'details-button', onClick: () => setSelectedProject(project) }, 'View project brief →')))))
+          ),
+          React.createElement('section', { id: 'join', className: 'join-section' }, React.createElement('div', { className: 'join-card' }, React.createElement('p', { className: 'eyebrow' }, 'OPEN RECRUITMENT'), React.createElement('h2', null, 'Ready to build?'), React.createElement('p', null, 'We welcome engineers, programmers, designers, and strategists at every level. Meetings every Tuesday and Thursday.'), React.createElement('a', { href: 'mailto:club@university.edu', className: 'btn btn-secondary' }, 'Contact leadership')))
+        ),
+        React.createElement('footer', null, '© 2026 RUGVED Systems · Educational and research purposes only.'),
+        selectedProject && React.createElement('div', { className: 'modal-backdrop', role: 'presentation', onClick: () => setSelectedProject(null) }, React.createElement('section', { className: 'project-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'modal-title', onClick: event => event.stopPropagation() }, React.createElement('button', { className: 'close-button', onClick: () => setSelectedProject(null), 'aria-label': 'Close project brief' }, '×'), React.createElement('span', { className: 'division-tag' }, selectedProject.division), React.createElement('h2', { id: 'modal-title' }, selectedProject.name), React.createElement('p', null, selectedProject.detail), React.createElement('div', { className: 'tag-list' }, selectedProject.tags.map(tag => React.createElement('span', { key: tag }, tag)))))
+      );
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
+  </script>
+</body>
+</html>
