@@ -5,72 +5,198 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="R.U.G.V.E.D — Remote Unmanned Ground Vehicular Electronic Defence Systems.">
   <title>R.U.G.V.E.D</title>
-  <link rel="preconnect" href="https://unpkg.com">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="root"></div>
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <nav class="navbar">
+    <button class="logo" type="button" data-scroll="#top" aria-label="Go to top">R.U.G.V.E.D</button>
+    <button class="menu-button" type="button" aria-expanded="false" aria-label="Toggle navigation">☰</button>
+    <div class="nav-links">
+      <button type="button" data-scroll="#about">About</button>
+      <button type="button" data-scroll="#projects">Projects</button>
+      <button type="button" data-scroll="#join">Contact</button>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="hero">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <p class="eyebrow">Defence technology initiative</p>
+          <h1>R.U.G.V.E.D</h1>
+          <p class="hero-copy">Remote Unmanned Ground Vehicular Electronic Defence Systems — advancing military-grade automation, AI, robotics, and electronics.</p>
+          <div class="hero-actions">
+            <button class="btn" type="button" data-scroll="#projects">Explore our tech</button>
+            <button class="text-button" type="button" data-scroll="#join">Contact us ↓</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section id="about" class="about-section">
+      <p class="eyebrow section-kicker">What we build</p>
+      <h2>Research with a real-world edge.</h2>
+      <p class="section-intro">From mechanical systems and embedded electronics to AI and strategy, we build as one team.</p>
+    </section>
+
+    <section id="projects" class="projects-section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Active programs</p>
+          <h2>Our projects</h2>
+        </div>
+        <div class="filters" aria-label="Filter projects">
+          <button class="active" type="button" data-filter="all">All</button>
+          <button type="button" data-filter="ground">Ground</button>
+          <button type="button" data-filter="aerial">Aerial</button>
+        </div>
+      </div>
+      <div class="project-grid" id="project-grid">
+        <article class="project-card">
+          <img src="pictures/ugv.png" alt="Aegis unmanned ground vehicle">
+          <div class="card-content">
+            <span class="division-tag">Ground division</span>
+            <h3>Unmanned Ground Vehicle</h3>
+            <p>Autonomous and modular ground vehicle fitted with our ground-penetrating radar research.</p>
+            <button class="details-button" type="button" data-project="ground">View project brief →</button>
+          </div>
+        </article>
+        <article class="project-card">
+          <img src="pictures/swarm.png" alt="Aegis UAV swarm">
+          <div class="card-content">
+            <span class="division-tag">Aerial division</span>
+            <h3>UAV Swarm</h3>
+            <p>An autonomous drone system designed around a coordinated parent-child architecture.</p>
+            <button class="details-button" type="button" data-project="aerial">View project brief →</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="sponsors" class="sponsors-section">
+      <p class="eyebrow section-kicker">Partnerships</p>
+      <h2>Our sponsors</h2>
+      <p class="section-intro">Our work is strengthened by organisations that support the next generation of defence technology.</p>
+      <div class="sponsor-grid" aria-label="Sponsor logos">
+        <div class="sponsor-logo">Sponsor logo</div>
+        <div class="sponsor-logo">Sponsor logo</div>
+        <div class="sponsor-logo">Sponsor logo</div>
+        <div class="sponsor-logo">Sponsor logo</div>
+      </div>
+      <a href="https://rugved.co.in/#contact" class="btn sponsor-cta">Become a sponsor</a>
+    </section>
+
+    <section id="join" class="join-section">
+      <div class="join-card">
+        <p class="eyebrow">Get in touch</p>
+        <h2>Contact us</h2>
+        <p>Connect with the R.U.G.V.E.D team to learn more about our defence-technology work.</p>
+        <a href="https://rugved.co.in/#contact" class="btn btn-secondary">Visit contact page</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2025 R.U.G.V.E.D Defense Technology Team. All Rights Reserved.</footer>
+
+  <div class="modal-backdrop" id="project-modal" hidden>
+    <section class="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="close-button" type="button" aria-label="Close project brief">×</button>
+      <span class="division-tag" id="modal-division"></span>
+      <h2 id="modal-title"></h2>
+      <p id="modal-detail"></p>
+      <div class="tag-list" id="modal-tags"></div>
+    </section>
+  </div>
+
   <script>
-    const { useEffect, useState } = React;
     const projects = [
-      { name: 'Unmanned Ground Vehicle', division: 'GROUND DIVISION', type: 'ground', image: 'pictures/ugv.png', alt: 'Aegis unmanned ground vehicle', summary: 'Autonomous and modular ground vehicle fitted with our ground-penetrating radar research.', detail: 'Vanguard is an all-terrain test platform exploring real-time mapping, obstacle avoidance, and modular payload integration.', tags: ['AUTONOMY', 'MAPPING', 'MODULAR'] },
-      { name: 'UAV Swarm', division: 'AERIAL DIVISION', type: 'aerial', image: 'pictures/swarm.png', alt: 'Aegis UAV swarm', summary: 'An autonomous drone system designed around a coordinated parent-child architecture.', detail: 'Sentinel investigates how a small group of UAVs can coordinate sensing, navigation, and mission hand-offs.', tags: ['SWARM', 'VISION', 'COORDINATION'] }
-    ];
-    const sponsorSlots = ['Sponsor logo', 'Sponsor logo', 'Sponsor logo', 'Sponsor logo'];
-    function App() {
-      const [filter, setFilter] = useState('all');
-      const [selectedProject, setSelectedProject] = useState(null);
-      const [menuOpen, setMenuOpen] = useState(false);
-      const visibleProjects = filter === 'all' ? projects : projects.filter(project => project.type === filter);
-      useEffect(() => {
-        const closeOnEscape = event => event.key === 'Escape' && setSelectedProject(null);
-        window.addEventListener('keydown', closeOnEscape);
-        return () => window.removeEventListener('keydown', closeOnEscape);
-      }, []);
-      function scrollToSection(id) {
-        document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
-        setMenuOpen(false);
+      {
+        name: 'Unmanned Ground Vehicle',
+        division: 'Ground division',
+        type: 'ground',
+        image: 'pictures/ugv.png',
+        alt: 'Aegis unmanned ground vehicle',
+        summary: 'Autonomous and modular ground vehicle fitted with our ground-penetrating radar research.',
+        detail: 'Vanguard is an all-terrain test platform exploring real-time mapping, obstacle avoidance, and modular payload integration.',
+        tags: ['Autonomy', 'Mapping', 'Modular']
+      },
+      {
+        name: 'UAV Swarm',
+        division: 'Aerial division',
+        type: 'aerial',
+        image: 'pictures/swarm.png',
+        alt: 'Aegis UAV swarm',
+        summary: 'An autonomous drone system designed around a coordinated parent-child architecture.',
+        detail: 'Sentinel investigates how a small group of UAVs can coordinate sensing, navigation, and mission hand-offs.',
+        tags: ['Swarm', 'Vision', 'Coordination']
       }
-      return React.createElement(React.Fragment, null,
-        React.createElement('nav', { className: 'navbar' },
-          React.createElement('button', { className: 'logo', onClick: () => scrollToSection('#top'), 'aria-label': 'Go to top' }, 'R.U.G.V.E.D'),
-          React.createElement('button', { className: 'menu-button', onClick: () => setMenuOpen(!menuOpen), 'aria-expanded': menuOpen, 'aria-label': 'Toggle navigation' }, menuOpen ? '×' : '☰'),
-          React.createElement('div', { className: `nav-links ${menuOpen ? 'is-open' : ''}` },
-            [['About', '#about'], ['Projects', '#projects'], ['Contact', '#join']].map(([label, target]) => React.createElement('button', { key: label, onClick: () => scrollToSection(target) }, label))
-          )
-        ),
-        React.createElement('main', { id: 'top' },
-          React.createElement('header', { className: 'hero' }, React.createElement('div', { className: 'hero-grid' },
-            React.createElement('div', { className: 'hero-content' },
-              React.createElement('p', { className: 'eyebrow' }, 'DEFENCE TECHNOLOGY INITIATIVE'),
-              React.createElement('h1', null, 'R.U.G.V.E.D'),
-              React.createElement('p', { className: 'hero-copy' }, 'Remote Unmanned Ground Vehicular Electronic Defence Systems — advancing military-grade automation, AI, robotics, and electronics.'),
-              React.createElement('div', { className: 'hero-actions' }, React.createElement('button', { className: 'btn', onClick: () => scrollToSection('#projects') }, 'Explore our tech'), React.createElement('button', { className: 'text-button', onClick: () => scrollToSection('#join') }, 'Contact us ↓'))
-            )
-          )),
-          React.createElement('section', { id: 'about', className: 'about-section' }, React.createElement('p', { className: 'eyebrow section-kicker' }, 'WHAT WE BUILD'), React.createElement('h2', null, 'Research with a real-world edge.'), React.createElement('p', { className: 'section-intro' }, 'From mechanical systems and embedded electronics to AI and strategy, we build as one team.')),
-          React.createElement('section', { id: 'projects', className: 'projects-section' },
-            React.createElement('div', { className: 'section-heading' }, React.createElement('div', null, React.createElement('p', { className: 'eyebrow' }, 'ACTIVE PROGRAMS'), React.createElement('h2', null, 'Our projects')), React.createElement('div', { className: 'filters', 'aria-label': 'Filter projects' }, [['all', 'All'], ['ground', 'Ground'], ['aerial', 'Aerial']].map(([value, label]) => React.createElement('button', { key: value, className: filter === value ? 'active' : '', onClick: () => setFilter(value) }, label)))),
-            React.createElement('div', { className: 'project-grid' }, visibleProjects.map(project => React.createElement('article', { className: 'project-card', key: project.name }, React.createElement('img', { src: project.image, alt: project.alt }), React.createElement('div', { className: 'card-content' }, React.createElement('span', { className: 'division-tag' }, project.division), React.createElement('h3', null, project.name), React.createElement('p', null, project.summary), React.createElement('button', { className: 'details-button', onClick: () => setSelectedProject(project) }, 'View project brief →')))))
-          ),
-          React.createElement('section', { id: 'sponsors', className: 'sponsors-section' },
-            React.createElement('p', { className: 'eyebrow section-kicker' }, 'PARTNERSHIPS'),
-            React.createElement('h2', null, 'Our sponsors'),
-            React.createElement('p', { className: 'section-intro' }, 'Our work is strengthened by organisations that support the next generation of defence technology.'),
-            React.createElement('div', { className: 'sponsor-grid', 'aria-label': 'Sponsor logos' }, sponsorSlots.map((label, index) =>
-              React.createElement('div', { className: 'sponsor-logo', key: index }, label)
-            )),
-            React.createElement('a', { href: 'https://rugved.co.in/#contact', className: 'btn sponsor-cta' }, 'Become a sponsor')
-          ),
-          React.createElement('section', { id: 'join', className: 'join-section' }, React.createElement('div', { className: 'join-card' }, React.createElement('p', { className: 'eyebrow' }, 'GET IN TOUCH'), React.createElement('h2', null, 'Contact us'), React.createElement('p', null, 'Connect with the R.U.G.V.E.D team to learn more about our defence-technology work.'), React.createElement('a', { href: 'https://rugved.co.in/#contact', className: 'btn btn-secondary' }, 'Visit contact page')))
-        ),
-        React.createElement('footer', null, '© 2025 R.U.G.V.E.D Defense Technology Team. All Rights Reserved.'),
-        selectedProject && React.createElement('div', { className: 'modal-backdrop', role: 'presentation', onClick: () => setSelectedProject(null) }, React.createElement('section', { className: 'project-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'modal-title', onClick: event => event.stopPropagation() }, React.createElement('button', { className: 'close-button', onClick: () => setSelectedProject(null), 'aria-label': 'Close project brief' }, '×'), React.createElement('span', { className: 'division-tag' }, selectedProject.division), React.createElement('h2', { id: 'modal-title' }, selectedProject.name), React.createElement('p', null, selectedProject.detail), React.createElement('div', { className: 'tag-list' }, selectedProject.tags.map(tag => React.createElement('span', { key: tag }, tag)))))
-      );
+    ];
+
+    const projectGrid = document.querySelector('#project-grid');
+    const modal = document.querySelector('#project-modal');
+    const menuButton = document.querySelector('.menu-button');
+    const navLinks = document.querySelector('.nav-links');
+
+    function renderProjects(filter = 'all') {
+      const visibleProjects = filter === 'all' ? projects : projects.filter(project => project.type === filter);
+      projectGrid.innerHTML = visibleProjects.map(project => `
+        <article class="project-card">
+          <img src="${project.image}" alt="${project.alt}">
+          <div class="card-content">
+            <span class="division-tag">${project.division}</span>
+            <h3>${project.name}</h3>
+            <p>${project.summary}</p>
+            <button class="details-button" type="button" data-project="${project.type}">View project brief →</button>
+          </div>
+        </article>
+      `).join('');
     }
-    ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
+
+    function openModal(projectType) {
+      const project = projects.find(item => item.type === projectType);
+      if (!project) return;
+
+      document.querySelector('#modal-division').textContent = project.division;
+      document.querySelector('#modal-title').textContent = project.name;
+      document.querySelector('#modal-detail').textContent = project.detail;
+      document.querySelector('#modal-tags').innerHTML = project.tags.map(tag => `<span>${tag}</span>`).join('');
+      modal.hidden = false;
+      document.querySelector('.close-button').focus();
+    }
+
+    function closeModal() {
+      modal.hidden = true;
+    }
+
+    document.addEventListener('click', event => {
+      const scrollTarget = event.target.closest('[data-scroll]');
+      if (scrollTarget) {
+        document.querySelector(scrollTarget.dataset.scroll)?.scrollIntoView({ behavior: 'smooth' });
+        navLinks.classList.remove('is-open');
+        menuButton.setAttribute('aria-expanded', 'false');
+      }
+
+      const filterButton = event.target.closest('[data-filter]');
+      if (filterButton) {
+        document.querySelectorAll('[data-filter]').forEach(button => button.classList.toggle('active', button === filterButton));
+        renderProjects(filterButton.dataset.filter);
+      }
+
+      const detailsButton = event.target.closest('[data-project]');
+      if (detailsButton) openModal(detailsButton.dataset.project);
+      if (event.target.matches('.close-button') || event.target === modal) closeModal();
+    });
+
+    menuButton.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('is-open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') closeModal();
+    });
+
+    renderProjects();
   </script>
 </body>
 </html>

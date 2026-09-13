@@ -372,6 +372,9 @@ footer {
   position: fixed;
   z-index: 20;
 }
+.modal-backdrop[hidden] {
+  display: none;
+}
 .project-modal {
   background: var(--panel-light);
   border: 1px solid #4f6f5b;
