@@ -77,9 +77,48 @@ button {
 
 /* Hero */
 .hero {
-  background: radial-gradient(circle at 50% 18%, #1d4937 0, transparent 26%), linear-gradient(120deg, #0d1819, var(--bg) 65%);
+  align-items: center;
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(rgb(36 95 153 / .07) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(36 95 153 / .07) 1px, transparent 1px),
+    radial-gradient(circle at 50% 18%, #1d4937 0, transparent 26%),
+    radial-gradient(circle at 18% 82%, rgb(36 95 153 / .22) 0, transparent 42%),
+    radial-gradient(circle at 84% 22%, rgb(36 95 153 / .16) 0, transparent 40%),
+    linear-gradient(120deg, #0d1819, var(--bg) 65%);
+  background-size: 44px 44px, 44px 44px, auto, auto, auto, auto;
+  display: flex;
+  min-height: calc(100svh - 60px);
   padding: clamp(2.5rem, 5vw, 4.5rem) clamp(1.25rem, 5vw, 5rem);
+  position: relative;
   text-align: center;
+}
+.hero::before {
+  background: linear-gradient(90deg, transparent, rgb(36 95 153 / .25), transparent);
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.particle-canvas {
+  height: 100%;
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+}
+.hero-grid, .hero-content {
+  position: relative;
+  z-index: 1;
+}
+.hero::after {
+  background: radial-gradient(ellipse at 50% 100%, rgb(36 95 153 / .18) 0, transparent 55%);
+  content: "";
+  inset: auto 0 0;
+  height: 30%;
+  position: absolute;
 }
 .hero-grid {
   align-items: center;
@@ -94,7 +133,10 @@ button {
 
 
 .hero-content {
-  max-width: 720px;
+  margin: 0 auto;
+  max-width: 760px;
+  text-align: center;
+  width: 100%;
 }
 .badge, .division-tag, .eyebrow, .panel-label {
   color: var(--green);
