@@ -49,6 +49,7 @@ button {
   font-weight: 850;
   letter-spacing: .13em;
   padding: 0;
+  text-decoration: none;
 }
 .logo span {
   color: var(--green);
@@ -57,16 +58,17 @@ button {
   display: flex;
   gap: 1.8rem;
 }
-.nav-links button, .text-button {
+.nav-links button, .nav-links a, .text-button {
   background: none;
   border: 0;
   color: var(--muted);
   font-size: .76rem;
   font-weight: 750;
   letter-spacing: .1em;
+  text-decoration: none;
   text-transform: uppercase;
 }
-.nav-links button:hover, .text-button:hover {
+.nav-links button:hover, .nav-links a:hover, .text-button:hover {
   color: var(--green);
 }
 .menu-button {
@@ -212,7 +214,7 @@ section {
 .section-kicker {
   margin-bottom: .5rem;
 }
-.about-section h2, .section-heading h2, .join-card h2 {
+.about-section h1, .about-section h2, .section-heading h2, .join-card h2 {
   font-size: clamp(2rem, 4vw, 3.1rem);
   letter-spacing: -.04em;
   line-height: 1.12;
@@ -450,7 +452,7 @@ footer {
   .nav-links.is-open {
     display: flex;
   }
-  .nav-links button {
+  .nav-links button, .nav-links a {
     text-align: left;
   }
   .hero-actions {
