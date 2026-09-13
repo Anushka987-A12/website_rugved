@@ -42,14 +42,21 @@ button {
   z-index: 10;
 }
 .logo {
+  align-items: center;
   background: none;
   border: 0;
   color: var(--text);
+  display: inline-flex;
   font-size: 1.05rem;
   font-weight: 850;
+  gap: .55rem;
   letter-spacing: .13em;
   padding: 0;
   text-decoration: none;
+}
+.navbar-logo {
+  height: 26px;
+  width: auto;
 }
 .logo span {
   color: var(--green);
@@ -110,6 +117,10 @@ button {
   width: 100%;
 }
 .hero-grid, .hero-content {
+  position: relative;
+  z-index: 1;
+}
+.about-section > :not(.particle-canvas) {
   position: relative;
   z-index: 1;
 }
@@ -176,6 +187,12 @@ button {
   font-size: 1.1rem;
   margin: 1.5rem auto 2rem;
   max-width: 560px;
+}
+.hero-logo {
+  display: block;
+  margin: 0 auto;
+  max-height: 300px;
+  width: auto;
 }
 .hero-actions {
   align-items: center;
@@ -254,6 +271,7 @@ section {
 }
 .about-section {
   background: #0d1519;
+  position: relative;
   text-align: center;
 }
 .section-kicker {
