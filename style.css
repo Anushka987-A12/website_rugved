@@ -7,6 +7,7 @@
   --text: #edf5f0;
   --muted: #94a39b;
   --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --nav-h: 61px;
 }
 * {
   box-sizing: border-box;
@@ -56,7 +57,12 @@ button {
 }
 .navbar-logo {
   height: 26px;
+  transition: filter .2s, transform .2s;
   width: auto;
+}
+.logo:hover .navbar-logo {
+  filter: drop-shadow(0 0 8px rgb(61 143 214 / .9));
+  transform: scale(1.05);
 }
 .logo span {
   color: var(--green);
@@ -73,10 +79,13 @@ button {
   font-weight: 750;
   letter-spacing: .1em;
   text-decoration: none;
+  text-shadow: none;
   text-transform: uppercase;
+  transition: color .2s, text-shadow .2s;
 }
 .nav-links button:hover, .nav-links a:hover, .text-button:hover {
-  color: var(--green);
+  color: #6fb2f0;
+  text-shadow: 0 0 10px rgb(61 143 214 / .9), 0 0 22px rgb(61 143 214 / .5);
 }
 .menu-button {
   display: none;
@@ -89,14 +98,14 @@ button {
   background-image:
     linear-gradient(rgb(36 95 153 / .07) 1px, transparent 1px),
     linear-gradient(90deg, rgb(36 95 153 / .07) 1px, transparent 1px),
-    radial-gradient(circle at 50% 18%, #1d4937 0, transparent 26%),
     radial-gradient(circle at 18% 82%, rgb(36 95 153 / .22) 0, transparent 42%),
     radial-gradient(circle at 84% 22%, rgb(36 95 153 / .16) 0, transparent 40%),
     linear-gradient(120deg, #0d1819, var(--bg) 65%);
-  background-size: 44px 44px, 44px 44px, auto, auto, auto, auto;
+  background-size: 44px 44px, 44px 44px, auto, auto, auto;
   display: flex;
-  min-height: calc(100svh - 60px);
-  padding: clamp(2.5rem, 5vw, 4.5rem) clamp(1.25rem, 5vw, 5rem);
+  height: calc(100svh - var(--nav-h));
+  overflow: hidden;
+  padding: clamp(1.5rem, 4vh, 3rem) clamp(1.25rem, 5vw, 5rem);
   position: relative;
   text-align: center;
 }
@@ -139,7 +148,7 @@ button {
   justify-content: center;
   margin: auto;
   max-width: 840px;
-  min-height: inherit;
+  min-height: 0;
 }
 
 
@@ -191,8 +200,20 @@ button {
 .hero-logo {
   display: block;
   margin: 0 auto;
-  max-height: 300px;
+  max-height: min(380px, 55vh);
   width: auto;
+}
+.hero-logo-button {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+  padding: 0;
+  transition: transform .25s;
+}
+.hero-logo-button:hover {
+  transform: scale(1.03);
 }
 .hero-actions {
   align-items: center;
@@ -211,10 +232,13 @@ button {
   padding: .85rem 1.2rem;
   text-decoration: none;
   text-transform: uppercase;
-  transition: transform .2s, box-shadow .2s;
+  transition: transform .2s, box-shadow .2s, background-color .2s, border-color .2s, color .2s;
 }
 .btn:hover {
-  box-shadow: 0 10px 28px rgb(36 95 153 / .35);
+  background: #3d8fd6;
+  border-color: #3d8fd6;
+  box-shadow: 0 0 18px rgb(61 143 214 / .75), 0 0 40px rgb(61 143 214 / .45);
+  color: #fff;
   transform: translateY(-2px);
 }
 .mission-panel {
@@ -287,6 +311,102 @@ section {
   margin: 1rem auto 0;
   max-width: 560px;
 }
+.image-placeholder {
+  align-items: center;
+  background: var(--panel);
+  border: 1px dashed #456154;
+  color: var(--muted);
+  display: flex;
+  font-size: .78rem;
+  font-weight: 800;
+  justify-content: center;
+  letter-spacing: .1em;
+  margin: 2rem auto 0;
+  max-width: 640px;
+  min-height: 260px;
+  text-transform: uppercase;
+  width: 100%;
+}
+.image-placeholder img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* Subsystem cards and detail pages */
+.card-link {
+  color: inherit;
+  display: block;
+  text-decoration: none;
+  transition: border-color .25s, transform .25s, box-shadow .25s;
+}
+.card-link:hover {
+  border-color: #3d8fd6;
+  box-shadow: 0 0 22px rgb(61 143 214 / .3);
+  transform: translateY(-5px);
+}
+.card-link .card-content h3 {
+  transition: color .2s, text-shadow .2s;
+}
+.card-link:hover .card-content h3 {
+  color: #6fb2f0;
+  text-shadow: 0 0 12px rgb(61 143 214 / .7);
+}
+.card-more {
+  color: var(--green);
+  display: inline-block;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .06em;
+  margin-top: 1.1rem;
+  text-transform: uppercase;
+  transition: color .2s, text-shadow .2s;
+}
+.card-link:hover .card-more {
+  color: #6fb2f0;
+  text-shadow: 0 0 10px rgb(61 143 214 / .8);
+}
+.detail-intro {
+  color: var(--muted);
+  margin: 1rem auto 0;
+  max-width: 680px;
+}
+.focus-list {
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  margin-top: 2.5rem;
+}
+.focus-list li {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  list-style: none;
+  padding: 1.4rem;
+}
+.focus-list h3 {
+  font-size: 1.1rem;
+  letter-spacing: -.02em;
+  margin-bottom: .5rem;
+}
+.focus-list p {
+  color: var(--muted);
+  font-size: .92rem;
+}
+.back-link {
+  color: var(--green);
+  display: inline-block;
+  font-size: .76rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  margin-bottom: 1.4rem;
+  text-transform: uppercase;
+  transition: color .2s, text-shadow .2s;
+}
+.back-link:hover {
+  color: #6fb2f0;
+  text-decoration: underline;
+  text-shadow: 0 0 10px rgb(61 143 214 / .8);
+}
 .projects-section {
   margin: auto;
   max-width: 1280px;
@@ -307,10 +427,13 @@ section {
   color: var(--muted);
   font-size: .75rem;
   padding: .5rem .75rem;
+  transition: border-color .2s, color .2s, box-shadow .2s, background-color .2s;
 }
 .filters button.active, .filters button:hover {
-  border-color: var(--green);
-  color: var(--green);
+  background: rgb(61 143 214 / .1);
+  border-color: #3d8fd6;
+  box-shadow: 0 0 14px rgb(61 143 214 / .45);
+  color: #6fb2f0;
 }
 .project-grid {
   display: grid;
@@ -322,6 +445,9 @@ section {
   border: 1px solid var(--line);
   overflow: hidden;
   transition: border-color .25s, transform .25s;
+}
+.about-grid {
+  margin-top: 2rem;
 }
 .project-card:hover {
   border-color: #568168;
@@ -353,6 +479,11 @@ section {
   margin-top: 1.2rem;
   padding: 0;
   text-transform: uppercase;
+  transition: color .2s, text-shadow .2s;
+}
+.details-button:hover {
+  color: #6fb2f0;
+  text-shadow: 0 0 10px rgb(61 143 214 / .85), 0 0 20px rgb(61 143 214 / .45);
 }
 
 /* Sponsors */
@@ -418,7 +549,9 @@ section {
   color: var(--text);
 }
 .btn-secondary:hover {
-  color: var(--green);
+  background: rgb(61 143 214 / .12);
+  border-color: #3d8fd6;
+  color: #6fb2f0;
 }
 footer {
   border-top: 1px solid var(--line);

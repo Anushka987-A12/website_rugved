@@ -9,9 +9,10 @@
 </head>
 <body>
   <nav class="navbar">
-    <button class="logo" type="button" data-scroll="#top" aria-label="Go to top"><img class="navbar-logo" src="pictures/RUGVED_removedBG.png" alt="">R.U.G.V.E.D</button>
+    <a class="logo" href="index.html" aria-label="Go to landing page"><img class="navbar-logo" src="pictures/RUGVED_removedBG.png" alt="">R.U.G.V.E.D</a>
     <button class="menu-button" type="button" aria-expanded="false" aria-label="Toggle navigation">☰</button>
     <div class="nav-links">
+      <button type="button" data-scroll="#about">About</button>
       <button type="button" data-scroll="#projects">Projects</button>
       <a href="subsystems.html">Subsystems</a>
       <a href="team.html">Team</a>
@@ -25,15 +26,22 @@
       <canvas class="particle-canvas" aria-hidden="true"></canvas>
       <div class="hero-grid">
         <div class="hero-content">
-          <img class="hero-logo" src="pictures/RUGVED_removedBG.png" alt="R.U.G.V.E.D logo">
+          <button class="hero-logo-button" type="button" data-scroll="#about" aria-label="Go to about section">
+            <img class="hero-logo" src="pictures/RUGVED_removedBG.png" alt="R.U.G.V.E.D logo">
+          </button>
         </div>
       </div>
     </header>
 
+    <section id="about" class="about-section text-section">
+      <h2>About us</h2>
+      <p class="section-intro">R.U.G.V.E.D brings together students across research, electronics, artificial intelligence, robotics, mechanical systems, management, and leadership to build one team around one shared goal: defence technology with a real-world edge.</p>
+      <div class="image-placeholder" title="Add image here">Image</div>
+    </section>
+
     <section id="projects" class="projects-section">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">Active programs</p>
           <h2>Our projects</h2>
         </div>
         <div class="filters" aria-label="Filter projects">
@@ -46,7 +54,6 @@
         <article class="project-card">
           <img src="pictures/ugv.png" alt="Aegis unmanned ground vehicle">
           <div class="card-content">
-            <span class="division-tag">Ground division</span>
             <h3>Unmanned Ground Vehicle</h3>
             <p>Autonomous and modular ground vehicle fitted with our ground-penetrating radar research.</p>
             <button class="details-button" type="button" data-project="ground">View project brief →</button>
@@ -55,7 +62,6 @@
         <article class="project-card">
           <img src="pictures/swarm.png" alt="Aegis UAV swarm">
           <div class="card-content">
-            <span class="division-tag">Aerial division</span>
             <h3>UAV Swarm</h3>
             <p>An autonomous drone system designed around a coordinated parent-child architecture.</p>
             <button class="details-button" type="button" data-project="aerial">View project brief →</button>
@@ -65,7 +71,6 @@
     </section>
 
     <section id="sponsors" class="sponsors-section">
-      <p class="eyebrow section-kicker">Partnerships</p>
       <h2>Our sponsors</h2>
       <p class="section-intro">Our work is strengthened by organisations that support the next generation of defence technology.</p>
       <div class="sponsor-grid" aria-label="Sponsor logos">
@@ -79,7 +84,6 @@
 
     <section id="join" class="join-section">
       <div class="join-card">
-        <p class="eyebrow">Get in touch</p>
         <h2>Contact us</h2>
         <p>Connect with the R.U.G.V.E.D team to learn more about our defence-technology work.</p>
         <a href="https://rugved.co.in/#contact" class="btn btn-secondary">Visit contact page</a>
@@ -92,7 +96,6 @@
   <div class="modal-backdrop" id="project-modal" hidden>
     <section class="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
       <button class="close-button" type="button" aria-label="Close project brief">×</button>
-      <span class="division-tag" id="modal-division"></span>
       <h2 id="modal-title"></h2>
       <p id="modal-detail"></p>
       <div class="tag-list" id="modal-tags"></div>
@@ -134,7 +137,6 @@
         <article class="project-card">
           <img src="${project.image}" alt="${project.alt}">
           <div class="card-content">
-            <span class="division-tag">${project.division}</span>
             <h3>${project.name}</h3>
             <p>${project.summary}</p>
             <button class="details-button" type="button" data-project="${project.type}">View project brief →</button>
@@ -147,7 +149,6 @@
       const project = projects.find(item => item.type === projectType);
       if (!project) return;
 
-      document.querySelector('#modal-division').textContent = project.division;
       document.querySelector('#modal-title').textContent = project.name;
       document.querySelector('#modal-detail').textContent = project.detail;
       document.querySelector('#modal-tags').innerHTML = project.tags.map(tag => `<span>${tag}</span>`).join('');
@@ -189,6 +190,6 @@
 
     renderProjects();
   </script>
-  <script src="particles.js"></script>
+  <script src="drones.js"></script>
 </body>
 </html>
